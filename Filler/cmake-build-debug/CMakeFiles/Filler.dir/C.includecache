@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/ggavryly/CLionProjects/Filler/include/filler.h
+../libft/include/libft.h
+/Users/ggavryly/CLionProjects/Filler/libft/include/libft.h
+stdio.h
+-
+
+/Users/ggavryly/CLionProjects/Filler/libft/include/libft.h
+string.h
+-
+stdlib.h
+-
+unistd.h
+-
+fcntl.h
+-
+limits.h
+-
+stdint.h
+-
+
+/Users/ggavryly/CLionProjects/Filler/src/parse.c
+../include/filler.h
+/Users/ggavryly/CLionProjects/Filler/include/filler.h
+
+/Users/ggavryly/CLionProjects/Filler/src/solve.c
+../include/filler.h
+/Users/ggavryly/CLionProjects/Filler/include/filler.h
+
