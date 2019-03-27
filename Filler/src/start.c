@@ -73,6 +73,19 @@ void	map_init(t_map *map)
 	}
 }
 
+void	hit_start(int *hit, t_map *map)
+{
+	int j;
+
+	j = 0;
+	while (j < map->map_w)
+	{
+		hit[j] = 999;
+		j++;
+	}
+
+}
+
 void	hit_map_init(t_map *map)
 {
 	int i;
@@ -83,7 +96,7 @@ void	hit_map_init(t_map *map)
 	while (i < map->map_h)
 	{
 		map->hit_map[i] = (int *)malloc(sizeof(int) * map->map_w);
-		ft_memset(map->hit_map[i], 0, sizeof(int) * map->map_w);
+		hit_start(map->hit_map[i], map);
 		i++;
 	}
 }

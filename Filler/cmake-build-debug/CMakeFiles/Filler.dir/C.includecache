@@ -26,10 +26,6 @@ limits.h
 stdint.h
 -
 
-/Users/ggavryly/CLionProjects/Filler/src/parse.c
-../include/filler.h
-/Users/ggavryly/CLionProjects/Filler/include/filler.h
-
 /Users/ggavryly/CLionProjects/Filler/src/solve.c
 ../include/filler.h
 /Users/ggavryly/CLionProjects/Filler/include/filler.h

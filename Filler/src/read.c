@@ -43,29 +43,33 @@ int		read_map(t_map *map, int fd)
 			return (1);
 		}
 	}
-	return (0);
+	return (1);
+}
+
+void		fig_w_h(t_piece *piece, t_map *map)
+{
+	int i;
+
+	i = 0;
+	while (map->line[i] < '0' || map->line[i] > '9')
+		i++;
+	piece->fig_h = ft_atoi(map->line + i);
+	i++;
+	piece->fig_w = ft_atoi(map->line + i);
 }
 
 t_piece 	*read_piece(t_map *map, int fd, t_piece *piece)
 {
-	int		flag;
 	size_t 	i;
 
-	flag = 0;
 	i = 0;
-	while (!ft_strstr(map->line, "<got") && get_next_line(fd, &map->line) > 0)
+	fig_w_h(piece, map);
+	piece->fig = (char **)malloc(sizeof(char *) * piece->fig_h + 1);
+	piece->fig[piece->fig_h] = NULL;
+	while (i < piece->fig_h && get_next_line(fd, &map->line) > 0)
 	{
-		if (!flag)
-		{
-			piece->fig_w = ft_strlen(map->line);
-			flag = 1;
-		}
-		if (!ft_strstr(map->line, "<got"))
-		{
 			piece->fig[i] = ft_strsub(map->line, 0, map->map_w);
 			i++;
-		}
 	}
-	piece->fig_h = i;
 	return (piece);
 }

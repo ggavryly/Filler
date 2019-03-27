@@ -1,5 +1,5 @@
-seed = 455
-O: timedout
+seed = 2696
+./ggavryly.filler: Segfault at 4
 players/carli.filler won
 Score:
-0AGAINST166
+137AGAINST4

@@ -24,8 +24,6 @@ typedef struct	s_map
 	char		*line;
 	char		**map;
 	int			**hit_map;
-	int			last_ax;
-	int			last_ay;
 }				t_map;
 
 typedef	struct	s_piece
@@ -34,13 +32,17 @@ typedef	struct	s_piece
 	int			**cords;
 	int			start_x;
 	int			start_y;
-	size_t		curr_x;
-	size_t		curr_y;
 	int			best_x;
 	int			best_y;
-	size_t		fig_h;
-	size_t		fig_w;
+	int 		best_count;
+	int			fig_h;
+	int			fig_w;
+	int 		count;
 }				t_piece;
+
+void		hit_999(t_map *map);
+void		print_map(t_map *map);
+void		print_piece(t_piece *piece);
 void		print_kords(t_piece *piece);
 void		map_try_piece(t_map *map, t_piece *piece);
 void		print_hit(t_map *map);
