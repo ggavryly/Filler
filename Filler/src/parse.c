@@ -86,28 +86,16 @@ void	hit_fill_xo(t_map *map)
 	}
 }
 
-void	hit_8_fill(t_map *map, int i, int j, int hit_curr)
+void	hit_4_fill(t_map *map, int i, int j, int hit_curr)
 {
 	if (i - 1 >= 0 && i - 1 < map->map_h && map->hit_map[i - 1][j] == 999)
 		map->hit_map[i - 1][j] = hit_curr + 1;
-	if(i - 1 >= 0 && i - 1 < map->map_h && j + 1 >= 0 && j + 1 < map->map_w
-		&& map->hit_map[i - 1][j + 1] == 999)
-		map->hit_map[i - 1][j + 1] = hit_curr + 1;
 	if (j + 1 >= 0 && j + 1 < map->map_w && map->hit_map[i][j + 1] == 999)
 		map->hit_map[i][j + 1] = hit_curr + 1;
-	if(i + 1 >= 0 && i + 1 < map->map_h && j + 1 >= 0 && j + 1 < map->map_w
-			&& map->hit_map[i + 1][j + 1] == 999)
-		map->hit_map[i + 1][j + 1] = hit_curr + 1;
 	if (i + 1 >= 0 && i + 1 < map->map_h && map->hit_map[i + 1][j] == 999)
 		map->hit_map[i + 1][j] = hit_curr + 1;
-	if(i + 1 >= 0 && i + 1 < map->map_h && j - 1 >= 0 && j - 1 < map->map_w
-			&& map->hit_map[i + 1][j - 1] == 999)
-		map->hit_map[i + 1][j - 1] = hit_curr + 1;
 	if (j - 1 >= 0 && j - 1 < map->map_h && map->hit_map[i][j - 1] == 999)
 		map->hit_map[i][j - 1] = hit_curr + 1;
-	if(i - 1 >= 0 && i - 1 < map->map_h && j - 1 >= 0 && j - 1 < map->map_w
-			&& map->hit_map[i - 1][j - 1] == 999)
-		map->hit_map[i - 1][j - 1] = hit_curr + 1;
 }
 
 void	hit_re(t_map *map)
@@ -118,7 +106,7 @@ void	hit_re(t_map *map)
 
 	i = 0;
 	hit_curr = 0;
-	while (hit_curr < map->map_h)
+	while (hit_curr < map->map_h + map->map_w)
 	{
 		while (i < map->map_h)
 		{
@@ -126,7 +114,7 @@ void	hit_re(t_map *map)
 			while (j < map->map_w)
 			{
 				if (map->hit_map[i][j] == hit_curr)
-					hit_8_fill(map, i, j, hit_curr);
+					hit_4_fill(map, i, j, hit_curr);
 				j++;
 			}
 			i++;

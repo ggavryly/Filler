@@ -62,24 +62,31 @@ void	print_piece(t_piece *piece)
 		dprintf(2 ,"%s\n", piece->fig[i++]);
 }
 
+void 	search_count(t_map *map, t_piece *piece)
+{
+
+
+}
+
 int		main(void)
 {
 	t_map	map;
 	t_piece	piece;
 	int		fd;
-	int 	f;
+	int 	cords[100][2];
 
-	fd = open("../test.txt", O_RDONLY);
-//	fd = 0;
+//	fd = open("../test.txt", O_RDONLY);
+	fd = 0;
 	player_start(&map, fd);
 	map_stat(&map, fd);
 	map_init(&map);
 	hit_map_init(&map);
-	f = (map.place == 'O') ? (1) : 0;
 	while (read_map(&map, fd) && read_piece(&map, fd, &piece))
 	{
 		parse_process(&map, &piece);
-		map_try_piece(&map, &piece);
-		dprintf(1, "%d %d\n", piece.best_y - piece.start_y, piece.best_x - piece.start_x);
+		map_try_piece(&map, &piece, cords);
+		try_put(&map, &piece, piece.best_xy, cords);
+		rew_cords(&piece, piece.best_count, cords);
+		dprintf(1, "%d %d\n", piece.best_xy[0] - piece.start_y, piece.best_xy[1] - piece.start_x);
 	}
 }

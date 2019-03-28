@@ -67,44 +67,48 @@ void	rew_cords(t_piece *piece, int count, int cords[100][2])
 	}
 }
 
-void	print_kord(int cords[100][2], t_piece *piece)
+void	print_kord(int cords[100][2], t_piece *piece, int count)
 {
 	int i;
 
 	i = 0;
+	dprintf(2, "%d -", count);
 	while (piece->cords[i])
 	{
 		dprintf(2,"|%d - i|%d - j|\n", cords[i][0], cords[i][1]);
 		i++;
 	}
+	dprintf(2, "\n");
 }
 
-int 	try_put(t_map *map, t_piece *piece, int i, int j)
+int 	try_put(t_map *map, t_piece *piece, int ij[2], int cords[100][2])
 {
 	int k;
-	int tmp;
+	int tmp[2];
 	int value[2];
 	int count;
-	int best_count;
-	int cords[100][2];
 
-	best_count = 0;
-	value[0] = 999999;
+	value[0] = 987654;
 	count = 0;
 	while (count < piece->count)
 	{
 		rew_cords(piece, count, cords);
 		k = 0;
-		print_kord(cords, piece);
+		print_kord(cords, piece, count);
 		value[1] = 0;
+		tmp[1] = 0;
 		while (piece->cords[k])
 		{
-			if ((i + cords[k][0] >= 0 && i + cords[k][0] < map->map_h
-				 && j + cords[k][1] >= 0 && j + cords[k][1] < map->map_w))
+			if ((ij[0] + cords[k][0] >= 0 && ij[0] + cords[k][0] < map->map_h
+				 && ij[1] + cords[k][1] >= 0 && ij[1] + cords[k][1] < map->map_w))
 			{
-				tmp = map->hit_map[cords[k][0] + i][cords[k][1] + j];
-				if (tmp != 0)
-					value[1] += (tmp == -1) ? (100) : (tmp);
+				tmp[0] = map->hit_map[cords[k][0] + ij[0]][cords[k][1] + ij[1]];
+				if (tmp[0] != 0 && tmp[1] != 2)
+				{
+					if (tmp[0] == -1)
+						tmp[1]++;
+					value[1] += (tmp[0] == -1) ? (100) : (tmp[0]);
+				}
 				else
 					return (987654);
 			}
@@ -114,12 +118,11 @@ int 	try_put(t_map *map, t_piece *piece, int i, int j)
 		}
 		if (value[0] > value[1])
 		{
-			best_count = count;
+			piece->best_count = count;
 			value[0] = value[1];
 		}
 		count++;
 	}
-	piece->best_count = best_count;
 	return (value[0]);
 }
 
@@ -141,33 +144,32 @@ int		test_ij(t_map *map, int i, int j)
 	return (1);
 }
 
-void	map_try_piece(t_map *map, t_piece *piece)
+void	map_try_piece(t_map *map, t_piece *piece, int cords[100][2])
 {
-	int i;
-	int j;
+	int ij[2];
 	int value[2];
 
-	i = 0;
+	ij[0] = 0;
 	value[1] = 0;
 	value[0] = 987654;
-	while (i < map->map_h)
+	while (ij[0] < map->map_h)
 	{
-		j = 0;
-		while (j < map->map_w)
+		ij[1] = 0;
+		while (ij[1] < map->map_w)
 		{
-			if (map->map[i][j] == ft_toupper(map->place) && test_ij(map, i, j))
+			if (map->map[ij[0]][ij[1]] == ft_toupper(map->place) && test_ij(map, ij[0], ij[1]))
 			{
-				value[1] = try_put(map, piece, i, j);
+				value[1] = try_put(map, piece, ij, cords);
 				if (value[1] < value[0])
 				{
 					value[0] = value[1];
-					piece->best_x = j;
-					piece->best_y = i;
+					piece->best_xy[1] = ij[1];
+					piece->best_xy[0] = ij[0];
 				}
 			}
-			j++;
+			ij[1]++;
 		}
-		i++;
+		ij[0]++;
 	}
 }
 
