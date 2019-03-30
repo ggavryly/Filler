@@ -97,6 +97,9 @@
 		<Unit filename="/Users/ggavryly/CLionProjects/Filler/src/solve.c">
 			<Option target="Filler"/>
 		</Unit>
+		<Unit filename="/Users/ggavryly/CLionProjects/Filler/src/solve_2.c">
+			<Option target="Filler"/>
+		</Unit>
 		<Unit filename="/Users/ggavryly/CLionProjects/Filler/src/start.c">
 			<Option target="Filler"/>
 		</Unit>

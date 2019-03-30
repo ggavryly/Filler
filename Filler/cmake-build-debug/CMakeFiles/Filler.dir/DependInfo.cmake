@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_CHECK_C
   "/Users/ggavryly/CLionProjects/Filler/src/parse.c" "/Users/ggavryly/CLionProjects/Filler/cmake-build-debug/CMakeFiles/Filler.dir/src/parse.c.o"
   "/Users/ggavryly/CLionProjects/Filler/src/read.c" "/Users/ggavryly/CLionProjects/Filler/cmake-build-debug/CMakeFiles/Filler.dir/src/read.c.o"
   "/Users/ggavryly/CLionProjects/Filler/src/solve.c" "/Users/ggavryly/CLionProjects/Filler/cmake-build-debug/CMakeFiles/Filler.dir/src/solve.c.o"
+  "/Users/ggavryly/CLionProjects/Filler/src/solve_2.c" "/Users/ggavryly/CLionProjects/Filler/cmake-build-debug/CMakeFiles/Filler.dir/src/solve_2.c.o"
   "/Users/ggavryly/CLionProjects/Filler/src/start.c" "/Users/ggavryly/CLionProjects/Filler/cmake-build-debug/CMakeFiles/Filler.dir/src/start.c.o"
   )
 set(CMAKE_C_COMPILER_ID "AppleClang")

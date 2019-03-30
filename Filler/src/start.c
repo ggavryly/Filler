@@ -28,9 +28,10 @@ void	player_start(t_map *map, int fd)
 				map->place = 'X';
 				map->aplace = 'O';
 			}
-			free(map->line);
+			ft_strdel(&map->line);
 			break ;
 		}
+		ft_strdel(&map->line);
 	}
 }
 
@@ -46,14 +47,15 @@ void	map_stat(t_map *map, int fd)
 			while (map->line[i] < '0' || map->line[i] > '9')
 				i++;
 			if (map->line[i] >= '0' && map->line[i] <= '9')
-				map->map_h = (size_t)ft_atoi(map->line + i);
+				map->map_h = ft_atoi(map->line + i);
 			while (map->line[i] >= '0' && map->line[i] <= '9')
 				i++;
 			i++;
 			if (map->line[i] >= '0' && map->line[i] <= '9')
-				map->map_w = (size_t)ft_atoi(map->line + i);
+				map->map_w = ft_atoi(map->line + i);
 			break ;
 		}
+		ft_strdel(&map->line);
 	}
 }
 
@@ -73,19 +75,6 @@ void	map_init(t_map *map)
 	}
 }
 
-void	hit_start(int *hit, t_map *map)
-{
-	int j;
-
-	j = 0;
-	while (j < map->map_w)
-	{
-		hit[j] = 999;
-		j++;
-	}
-
-}
-
 void	hit_map_init(t_map *map)
 {
 	int i;
@@ -96,7 +85,8 @@ void	hit_map_init(t_map *map)
 	while (i < map->map_h)
 	{
 		map->hit_map[i] = (int *)malloc(sizeof(int) * map->map_w);
-		hit_start(map->hit_map[i], map);
 		i++;
 	}
 }
+
+

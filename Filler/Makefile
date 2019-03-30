@@ -10,6 +10,7 @@ SRCS_NAME =	src/main.c \
 			src/start.c \
 			src/read.c \
 			src/solve.c \
+			src/solve_2.c \
 			src/free.c
 
 SRCO_NAME = $(SRCS_NAME:.c=.o)

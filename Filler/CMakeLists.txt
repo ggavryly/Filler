@@ -12,6 +12,7 @@ add_executable(Filler
         src/start.c
         src/parse.c
         src/main.c
-        src/solve.c)
+        src/solve.c
+        src/solve_2.c)
 
 target_link_libraries(Filler -lft)

@@ -27,13 +27,17 @@ void	analize_piece(t_piece *piece)
 		{
 			if (piece->fig[i][j] == '*')
 			{
+				if (count == 0)
+				{
+					piece->start_y = i;
+					piece->start_x = j;
+				}
 				count++;
 			}
 			j++;
 		}
 		i++;
 	}
-	piece->count = count;
 	piece->cords = (int **)malloc(sizeof(int *) * count + 1);
 	piece->cords[count] = NULL;
 }
@@ -53,7 +57,7 @@ void	init_cords(t_piece *piece)
 		{
 			if (piece->fig[i][j] == '*')
 			{
-				piece->cords[ij] = (int *)malloc(sizeof(int) * 2);
+				piece->cords[ij] = (int *) malloc(sizeof(int) * 2);
 				piece->cords[ij][0] = i;
 				piece->cords[ij++][1] = j;
 			}
@@ -63,39 +67,29 @@ void	init_cords(t_piece *piece)
 	}
 }
 
-void	hit_fill_xo(t_map *map)
-{
-	int		i;
-	int		j;
 
-	i = 0;
-	print_map(map);
-	dprintf(2, "\n ");
-	while (i < map->map_h)
-	{
-		j = 0;
-		while (j < map->map_w)
-		{
-			if (ft_toupper(map->map[i][j]) == map->aplace)
-				map->hit_map[i][j] = 0;
-			else if (ft_toupper(map->map[i][j]) == map->place)
-				map->hit_map[i][j] = -1;
-			j++;
-		}
-		i++;
-	}
-}
-
-void	hit_4_fill(t_map *map, int i, int j, int hit_curr)
+void	hit_8_fill(t_map *map, int i, int j, int hit_curr)
 {
-	if (i - 1 >= 0 && i - 1 < map->map_h && map->hit_map[i - 1][j] == 999)
-		map->hit_map[i - 1][j] = hit_curr + 1;
-	if (j + 1 >= 0 && j + 1 < map->map_w && map->hit_map[i][j + 1] == 999)
-		map->hit_map[i][j + 1] = hit_curr + 1;
-	if (i + 1 >= 0 && i + 1 < map->map_h && map->hit_map[i + 1][j] == 999)
-		map->hit_map[i + 1][j] = hit_curr + 1;
-	if (j - 1 >= 0 && j - 1 < map->map_h && map->hit_map[i][j - 1] == 999)
-		map->hit_map[i][j - 1] = hit_curr + 1;
+    if (i - 1 >= 0 && i - 1 < map->map_h && map->hit_map[i - 1][j] == 99)
+			map->hit_map[i - 1][j] = hit_curr + 1;
+	if(i - 1 >= 0 && i - 1 < map->map_h && j + 1 >= 0 && j + 1 < map->map_w
+	    && map->hit_map[i - 1][j + 1] == 99)
+	    map->hit_map[i - 1][j + 1] = hit_curr + 1;
+	if (j + 1 >= 0 && j + 1 < map->map_w && map->hit_map[i][j + 1] == 99)
+	    map->hit_map[i][j + 1] = hit_curr + 1;
+	if(i + 1 >= 0 && i + 1 < map->map_h && j + 1 >= 0 && j + 1 < map->map_w
+	    && map->hit_map[i + 1][j + 1] == 99)
+	    map->hit_map[i + 1][j + 1] = hit_curr + 1;
+	if (i + 1 >= 0 && i + 1 < map->map_h && map->hit_map[i + 1][j] == 99)
+			map->hit_map[i + 1][j] = hit_curr + 1;
+	if(i + 1 >= 0 && i + 1 < map->map_h && j - 1 >= 0 && j - 1 < map->map_w
+	    && map->hit_map[i + 1][j - 1] == 99)
+	    map->hit_map[i + 1][j - 1] = hit_curr + 1;
+	if (j - 1 >= 0 && j - 1 < map->map_h && map->hit_map[i][j - 1] == 99)
+	    map->hit_map[i][j - 1] = hit_curr + 1;
+	if(i - 1 >= 0 && i - 1 < map->map_h && j - 1 >= 0 && j - 1 < map->map_w
+	    && map->hit_map[i - 1][j - 1] == 99)
+	    map->hit_map[i - 1][j - 1] = hit_curr + 1;
 }
 
 void	hit_re(t_map *map)
@@ -114,7 +108,7 @@ void	hit_re(t_map *map)
 			while (j < map->map_w)
 			{
 				if (map->hit_map[i][j] == hit_curr)
-					hit_4_fill(map, i, j, hit_curr);
+					hit_8_fill(map, i, j, hit_curr);
 				j++;
 			}
 			i++;
@@ -123,15 +117,32 @@ void	hit_re(t_map *map)
 		hit_curr++;
 	}
 }
+void	hit_99(t_map *map)
+{
+	int i;
+	int j;
 
+	i = 0;
+	while (i < map->map_h)
+	{
+		j = 0;
+		while (j < map->map_w)
+		{
+			map->hit_map[i][j] = 99;
+			if (ft_toupper(map->map[i][j]) == map->aplace)
+				map->hit_map[i][j] = 0;
+			else if (ft_toupper(map->map[i][j]) == map->place)
+				map->hit_map[i][j] = -1;
+			j++;
+		}
+		i++;
+	}
+}
 
 void	parse_process(t_map *map, t_piece *piece)
 {
-	hit_999(map);
+	hit_99(map);
 	analize_piece(piece);
 	init_cords(piece);
-	hit_fill_xo(map);
 	hit_re(map);
-	print_hit(map);
-	dprintf(2, "\n");
 }

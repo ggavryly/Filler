@@ -21,6 +21,10 @@ CMakeFiles/Filler.dir/src/solve.c.o: ../include/filler.h
 CMakeFiles/Filler.dir/src/solve.c.o: ../libft/include/libft.h
 CMakeFiles/Filler.dir/src/solve.c.o: ../src/solve.c
 
+CMakeFiles/Filler.dir/src/solve_2.c.o: ../include/filler.h
+CMakeFiles/Filler.dir/src/solve_2.c.o: ../libft/include/libft.h
+CMakeFiles/Filler.dir/src/solve_2.c.o: ../src/solve_2.c
+
 CMakeFiles/Filler.dir/src/start.c.o: ../include/filler.h
 CMakeFiles/Filler.dir/src/start.c.o: ../libft/include/libft.h
 CMakeFiles/Filler.dir/src/start.c.o: ../src/start.c
