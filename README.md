@@ -9,5 +9,5 @@ Then run `make` to obtain the player.
 To see it in action, run the VM (you will need to download it):
 
 ```
-./res/filler_vm -f res/maps/map00 -p1 filler -p2 res/players/superjeannot.filler
+./resources/filler_vm -f resources/maps/map00 -p1 filler -p2 resources/players/superjeannot.filler
 ```
